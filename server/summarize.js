@@ -1,3 +1,5 @@
+//AI summarization","Xenova/distilbart-cnn-12-6
+
 import {summaryExample} from "./utils/summary.js"
 import { pipeline } from "@xenova/transformers"
  export async function summarize (text){
