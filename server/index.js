@@ -1,11 +1,13 @@
 //Configurando servidor para rodar na porta 3333,recuperando request parametro ID 
 import cors from "cors"
-import  express  from "express"
+import  express, { text }  from "express"
 
 import { download } from "./download.js"
 import { transcribe } from "./transcribe.js"
+import { summarize } from "./summarize.js"
 
 const app = express()
+app.use (express.json())
 
 app.use(cors())
 
@@ -15,8 +17,21 @@ app.use(cors())
     const result = await transcribe()
     
     
-    response.json({result:result})
+    return response.json({result:result})
 })
+
+app.post("/summary", async (request, response ) => 
+{
+
+ const result =  await summarize(request.body.text)
+
+return response.json({result})
+})
+
+
+
+
+
 
 app.listen(3333, () => console.log ("server is running on port 3333"))
 //

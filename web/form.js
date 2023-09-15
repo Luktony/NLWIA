@@ -8,6 +8,7 @@ const content = document.querySelector("#content")
 form.addEventListener("submit", async (event)=> {
 
     event.preventDefault()
+    content.classList.add("placeholder")
 
     const videoURl = input.value
 //Tratamento para pegar ID do vídeo
@@ -24,6 +25,13 @@ content.textContent = "Obtendo o texto do áudio..."
 
  const transcription = await server.get ("/summary/"+ videoID)
 
-content.textContent = transcription.data.result
+content.textContent = "Realizando o resumo..."
 
+const summary = await server.post("/summary",
+{
+    text: transcription.data.result,
+})
+
+    content.textContent = summary.data.result
+    content.classList.remove("placeholder")
 })
